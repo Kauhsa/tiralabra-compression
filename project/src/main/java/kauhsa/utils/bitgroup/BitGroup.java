@@ -1,10 +1,10 @@
-package kauhsa.compression.lzw;
+package kauhsa.utils.bitgroup;
 
-public class LZWEntry {
+public class BitGroup {
     private final long data;
     private final int bits;    
 
-    public LZWEntry(long data, int bits) {
+    public BitGroup(long data, int bits) {
         this.data = data;
         this.bits = bits;
     }

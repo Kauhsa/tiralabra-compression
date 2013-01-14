@@ -10,7 +10,8 @@ public class App
 {
     public static void main( String[] args )
     {
-        byte[] bytes = "hehheh".getBytes();
-        LZW.encode(bytes);
+        byte[] bytes = "oleoleoleoleoleole".getBytes();
+        byte[] encoded = LZW.encode(bytes);
+        
     }
 }

@@ -1,5 +1,6 @@
 package kauhsa.compression.lzw;
 
+import kauhsa.utils.bitgroup.BitGroup;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -13,7 +14,7 @@ import static org.junit.Assert.*;
  */
 public class LZWEntryTest {
 
-    private LZWEntry entry;
+    private BitGroup entry;
     
     @Before
     public void setUp() {
@@ -21,7 +22,7 @@ public class LZWEntryTest {
     }
 
     public void entryTest(long data, int bytes, String s) {
-        entry = new LZWEntry(data, bytes);
+        entry = new BitGroup(data, bytes);
         assertEquals(s, entry.toString());
     }
     
