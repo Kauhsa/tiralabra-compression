@@ -1,8 +1,8 @@
 package kauhsa.compression.lzw;
 
-import kauhsa.utils.bitgroup.BitGroup;
 import kauhsa.utils.word.Word;
 import java.util.HashMap;
+import kauhsa.utils.bitgroup.BitGroup;
 
 /**
  *
@@ -15,29 +15,16 @@ public class LZWDictionary {
     private HashMap<Long, Word> longWordDict;
     private int currentBitSize;
     private long nextValue;
-
+    private int sizeOffset;
+    
     public LZWDictionary() {
-        nextValue = 0;
-        currentBitSize = 1;
-
-        /* 
-         * Fill dictionary with all single-byte words. Use short for iteration
-         * because byte would overflow and there would be an infinite loop.
-         */
-        wordLongDict = new HashMap<Word, Long>();
-        longWordDict = new HashMap<Long, Word>();
-        for (short i = Byte.MIN_VALUE; i <= Byte.MAX_VALUE; i++) {
-            add(new Word((byte) i));
-        }
-        
-        // Add EOF word to dictionary too
-        add(EOF_WORD);
+        initalizeDictionary();
     }
 
     private void updateCurrentBitSize() {
         // 2 ** currentBitSize
         int maxSizeWithCurrentBitSize = 1 << currentBitSize;
-        if (wordLongDict.size() > maxSizeWithCurrentBitSize) {
+        if (getDictionarySize() > maxSizeWithCurrentBitSize) {
             currentBitSize++;
         }
     }
@@ -69,4 +56,29 @@ public class LZWDictionary {
         return currentBitSize;
     }
     
+    public int getDictionarySize() {
+        return wordLongDict.size() + sizeOffset;
+    }
+        
+    public void incrementSizeOffset() {
+        sizeOffset++;
+    }    
+
+    private void initalizeDictionary() {
+        nextValue = 0;
+        currentBitSize = 1;
+
+        /* 
+         * Fill dictionary with all single-byte words. Use short for iteration
+         * because byte would overflow and there would be an infinite loop.
+         */
+        wordLongDict = new HashMap<Word, Long>();
+        longWordDict = new HashMap<Long, Word>();
+        for (short i = Byte.MIN_VALUE; i <= Byte.MAX_VALUE; i++) {
+            add(new Word((byte) i));
+        }
+        
+        // Add EOF word to dictionary too
+        add(EOF_WORD);
+    }
 }

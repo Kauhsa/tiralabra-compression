@@ -23,6 +23,11 @@ public class ByteArrayIterator {
         int bitsLeft = bitCount;
         long data = 0;
         
+        // FIXME: does not maybe work perfectly
+        if (bitCount > (byteArray.length - currentArrayIndex) * 8 - currentBitIndex) {
+            return null;
+        }
+        
         while (bitsLeft > 0) {
             data = data << 1;
             byte a = getBitFromCurrentPosition();
