@@ -31,12 +31,12 @@ public class LZW {
             }
             
             if (dict.containsWord(nextWord)) {                
-                logger.log(Level.INFO, "Word {0} found from dictionary", nextWord);
+                //logger.log(Level.INFO, "Word {0} found from dictionary", nextWord);
                 currentWord = nextWord;
             } else {                
-                logger.log(Level.INFO, "Word {0} not found from dictionary, added", nextWord);                
+                //logger.log(Level.INFO, "Word {0} not found from dictionary, added", nextWord);                
                 dict.add(nextWord);                
-                logger.log(Level.INFO, "BitGroup {0} for word {1} written", new Object[]{dict.getCode(currentWord), currentWord});
+                //logger.log(Level.INFO, "BitGroup {0} for word {1} written", new Object[]{dict.getCode(currentWord), currentWord});
                 writer.writeBitGroup(dict.getCode(currentWord));
                 currentWord = new Word(k);
             }
@@ -58,12 +58,16 @@ public class LZW {
         
         while (true) {
             currentCode = bat.next(dict.getCurrentBitSize());
-            logger.log(Level.INFO, "Read code {0}", currentCode);
+            //logger.log(Level.INFO, "Read code {0}", currentCode);
             currentEntry = dict.getWord(currentCode);
                         
-            if (currentEntry.equals(LZWDictionary.EOF_WORD)) {
+            if (currentEntry != null && currentEntry.equals(LZWDictionary.EOF_WORD)) {
                 break;
-            }
+            } else if (currentEntry == null) {
+                Word newWord = new Word(previousEntry.getData()).append(previousEntry.getData()[0]);
+                dict.add(newWord);
+                currentEntry = newWord;
+            } 
             
             if (previousEntry != null) {
                 dict.add(new Word(previousEntry.getData()).append(currentEntry.getData()[0]));

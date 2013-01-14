@@ -4,6 +4,7 @@
  */
 package kauhsa.utils.bitgroup;
 
+import java.util.Deque;
 import java.util.LinkedList;
 
 /**
@@ -11,32 +12,35 @@ import java.util.LinkedList;
  * @author mika
  */
 public class BitGroupWriter {    
-    private LinkedList<Byte> dataArray;
+    private Deque<Byte> byteQueue;
     private byte lastByteOffset = 0;
     
     public BitGroupWriter() {
-        dataArray = new LinkedList<Byte>();
-        dataArray.add((byte) 0);
+        byteQueue = new LinkedList<Byte>();
+        byteQueue.add((byte) 0);
     }
     
     public void writeBitGroup(BitGroup bitGroup) {        
         for (byte currentBit : new BitGroupBitIterator(bitGroup)) {            
-            byte currentByte = dataArray.removeLast();            
+            byte currentByte = byteQueue.removeLast();         
             currentByte = (byte) (currentByte | (currentBit << (7 - lastByteOffset)));
-            dataArray.addLast(currentByte);
+            byteQueue.addLast(currentByte);
             lastByteOffset++;
             
             if (lastByteOffset == 8) {
-                dataArray.add((byte) 0);
+                byteQueue.add((byte) 0);
                 lastByteOffset = 0;
             }
         }
     }
     
     public byte[] getByteArray() {
-        byte[] byteArray = new byte[dataArray.size()];
-        for (int i = 0; i < dataArray.size(); i++) {
-            byteArray[i] = dataArray.get(i);
+        byte[] byteArray = new byte[byteQueue.size()];
+        int i = 0;
+        while (!byteQueue.isEmpty()) {
+            byte newByte = byteQueue.removeFirst();
+            byteArray[i] = newByte;
+            i++;
         }
         return byteArray;
     }
