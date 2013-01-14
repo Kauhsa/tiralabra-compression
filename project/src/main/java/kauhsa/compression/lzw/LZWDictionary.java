@@ -9,7 +9,8 @@ import java.util.HashMap;
  * @author mcviinam
  */
 public class LZWDictionary {
-
+    public static final Word EOF_WORD = new Word(null);
+    
     private HashMap<Word, Long> dictionary;
     private int currentBitSize;
     private long nextValue;
@@ -26,6 +27,9 @@ public class LZWDictionary {
         for (short i = Byte.MIN_VALUE; i <= Byte.MAX_VALUE; i++) {
             add(new Word((byte) i));
         }
+        
+        // Add EOF word to dictionary too
+        add(EOF_WORD);
     }
 
     private void updateCurrentBitSize() {

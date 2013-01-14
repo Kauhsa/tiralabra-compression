@@ -22,7 +22,7 @@ public class BitGroupIteratorTest {
     @Test
     public void BitIteratorTest() {
         BitGroup bg = new BitGroup(2, 2);
-        BitIterator bi = new BitIterator(bg);        
+        BitGroupIterator bi = new BitGroupIterator(bg);        
         assertEquals(1, (byte) bi.next());
         assertEquals(0, (byte) bi.next());
     }
@@ -31,7 +31,7 @@ public class BitGroupIteratorTest {
     @Test
     public void BitIteratorTest2() {
         BitGroup bg = new BitGroup(50, 7);
-        BitIterator bi = new BitIterator(bg);        
+        BitGroupIterator bi = new BitGroupIterator(bg);        
         assertEquals(0, (byte) bi.next());
         assertEquals(1, (byte) bi.next());
         assertEquals(1, (byte) bi.next());

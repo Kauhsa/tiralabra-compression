@@ -21,6 +21,9 @@ public class Word {
 
     @Override
     public int hashCode() {
+        if (this.data == null) {
+            return 0;
+        }
         return Arrays.hashCode(this.data);
     }
 
@@ -33,6 +36,9 @@ public class Word {
             return false;
         }
         final Word other = (Word) obj;
+        if (this.data == null && other.data == null) {
+            return true;
+        }
         if (!Arrays.equals(this.data, other.data)) {
             return false;
         }
@@ -41,6 +47,9 @@ public class Word {
 
     @Override
     public String toString() {
+        if (data == null) {
+            return "[null word]";
+        }
         return new String(data);
     }
     

@@ -38,6 +38,7 @@ public class LZW {
             }
         }
         
+        writer.writeBitGroup(dict.get(LZWDictionary.EOF_WORD));        
         return writer.getByteArray();
     }
     
