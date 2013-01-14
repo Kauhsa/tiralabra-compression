@@ -20,7 +20,7 @@ public class BitGroupWriter {
     }
     
     public void writeBitGroup(BitGroup bitGroup) {        
-        for (byte currentBit : new BitGroupIterator(bitGroup)) {            
+        for (byte currentBit : new BitGroupBitIterator(bitGroup)) {            
             byte currentByte = dataArray.removeLast();            
             currentByte = (byte) (currentByte | (currentBit << (7 - lastByteOffset)));
             dataArray.addLast(currentByte);

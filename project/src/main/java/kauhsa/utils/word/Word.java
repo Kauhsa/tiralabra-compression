@@ -52,5 +52,11 @@ public class Word {
         }
         return new String(data);
     }
+
+    public byte[] getData() {
+        return data;
+    }
+    
+    
     
 }

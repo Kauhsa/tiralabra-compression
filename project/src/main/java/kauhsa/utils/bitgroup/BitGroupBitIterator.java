@@ -11,13 +11,13 @@ import java.util.NoSuchElementException;
  *
  * @author mika
  */
-public class BitGroupIterator implements Iterator<Byte>, Iterable<Byte> {
+public class BitGroupBitIterator implements Iterator<Byte>, Iterable<Byte> {
     private final BitGroup bg;
     private final long readBitLocation;
     private long data;
     private long bitsLeft;
     
-    public BitGroupIterator(BitGroup bg) {
+    public BitGroupBitIterator(BitGroup bg) {
         this.bg = bg;
         this.data = bg.getData();
         this.bitsLeft = bg.getBits();
@@ -44,7 +44,7 @@ public class BitGroupIterator implements Iterator<Byte>, Iterable<Byte> {
     }
 
     public Iterator<Byte> iterator() {
-        return new BitGroupIterator(bg);
+        return new BitGroupBitIterator(bg);
     } 
     
 }

@@ -11,7 +11,8 @@ import java.util.HashMap;
 public class LZWDictionary {
     public static final Word EOF_WORD = new Word(null);
     
-    private HashMap<Word, Long> dictionary;
+    private HashMap<Word, Long> wordLongDict;
+    private HashMap<Long, Word> longWordDict;
     private int currentBitSize;
     private long nextValue;
 
@@ -23,7 +24,8 @@ public class LZWDictionary {
          * Fill dictionary with all single-byte words. Use short for iteration
          * because byte would overflow and there would be an infinite loop.
          */
-        dictionary = new HashMap<Word, Long>();
+        wordLongDict = new HashMap<Word, Long>();
+        longWordDict = new HashMap<Long, Word>();
         for (short i = Byte.MIN_VALUE; i <= Byte.MAX_VALUE; i++) {
             add(new Word((byte) i));
         }
@@ -35,23 +37,36 @@ public class LZWDictionary {
     private void updateCurrentBitSize() {
         // 2 ** currentBitSize
         int maxSizeWithCurrentBitSize = 1 << currentBitSize;
-        if (dictionary.size() > maxSizeWithCurrentBitSize) {
+        if (wordLongDict.size() > maxSizeWithCurrentBitSize) {
             currentBitSize++;
         }
     }
 
-    public boolean contains(Word word) {
-        return dictionary.containsKey(word);
+    public boolean containsWord(Word word) {
+        return wordLongDict.containsKey(word);
+    }
+    
+    public boolean containsCode(BitGroup code) {
+        return longWordDict.containsKey(code.getData());
     }
 
     public void add(Word word) {
-        dictionary.put(word, nextValue);
+        wordLongDict.put(word, nextValue);
+        longWordDict.put(nextValue, word);
         nextValue++;
         updateCurrentBitSize();
     }
 
-    public BitGroup get(Word word) {
-        BitGroup entry = new BitGroup(dictionary.get(word), currentBitSize);
-        return entry;
+    public BitGroup getCode(Word word) {
+        return new BitGroup(wordLongDict.get(word), currentBitSize);
     }
+    
+    public Word getWord(BitGroup bitGroup) {
+        return longWordDict.get(bitGroup.getData());        
+    }
+
+    public int getCurrentBitSize() {
+        return currentBitSize;
+    }
+    
 }
