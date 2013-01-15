@@ -1,4 +1,4 @@
-package kauhsa.compression.lzw;
+package kauhsa.utils.bitgroup;
 
 import kauhsa.utils.bitgroup.BitGroup;
 import org.junit.After;
@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
  *
  * @author mcviinam
  */
-public class LZWEntryTest {
+public class BitGroupTest {
 
     private BitGroup entry;
     
