@@ -29,7 +29,7 @@ public class BitGroupOutputStreamTest {
     }
 
     private void singleByteTest(BitGroup bitGroup, int binary) throws IOException {
-        bitGroupWriter.writeBitGroup(bitGroup);
+        bitGroupWriter.write(bitGroup);
         bitGroupWriter.flush();
 
         byte[] byteArray = outputStream.toByteArray();
@@ -69,8 +69,8 @@ public class BitGroupOutputStreamTest {
 
     @Test
     public void testMultipleBitGroups1() throws IOException {
-        bitGroupWriter.writeBitGroup(new BitGroup(1, 1));        
-        bitGroupWriter.writeBitGroup(new BitGroup(1, 1));
+        bitGroupWriter.write(new BitGroup(1, 1));        
+        bitGroupWriter.write(new BitGroup(1, 1));
         bitGroupWriter.flush();
         
         assertEquals((byte) 0b11000000, outputStream.toByteArray()[0]);        
@@ -78,8 +78,8 @@ public class BitGroupOutputStreamTest {
     
     @Test
     public void testMultipleBitGroups2() throws IOException {
-        bitGroupWriter.writeBitGroup(new BitGroup(1, 2));        
-        bitGroupWriter.writeBitGroup(new BitGroup(1, 2));
+        bitGroupWriter.write(new BitGroup(1, 2));        
+        bitGroupWriter.write(new BitGroup(1, 2));
         bitGroupWriter.flush();
         
         assertEquals((byte) 0b01010000, outputStream.toByteArray()[0]);        
@@ -87,9 +87,9 @@ public class BitGroupOutputStreamTest {
     
     @Test
     public void testMultipleBitGroups3() throws IOException {
-        bitGroupWriter.writeBitGroup(new BitGroup(2, 2));        
-        bitGroupWriter.writeBitGroup(new BitGroup(1, 2));           
-        bitGroupWriter.writeBitGroup(new BitGroup(1, 3));
+        bitGroupWriter.write(new BitGroup(2, 2));        
+        bitGroupWriter.write(new BitGroup(1, 2));           
+        bitGroupWriter.write(new BitGroup(1, 3));
         bitGroupWriter.flush();
         
         assertEquals((byte) 0b10010010, outputStream.toByteArray()[0]);        

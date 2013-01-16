@@ -39,13 +39,13 @@ public class LZW {
                 currentWord = nextWord;
             } else {                              
                 dict.add(nextWord);
-                bgOutputStream.writeBitGroup(dict.getCode(currentWord));
+                bgOutputStream.write(dict.getCode(currentWord));
                 currentWord = new Word(k);
             }
         }
         
-        bgOutputStream.writeBitGroup(dict.getCode(currentWord));     
-        bgOutputStream.writeBitGroup(dict.getCode(LZWDictionary.EOF_WORD));
+        bgOutputStream.write(dict.getCode(currentWord));     
+        bgOutputStream.write(dict.getCode(LZWDictionary.EOF_WORD));
         bgOutputStream.flush();
     }
     
