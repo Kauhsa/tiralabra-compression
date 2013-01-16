@@ -1,0 +1,35 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[finnish]{babel}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\newcommand{\BigO}[1]{\ensuremath{\operatorname{O}\bigl(#1\bigr)}}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.1in}
+
+\begin{document}
+\title{Tiralabra 2013 periodi III \\ Viikkoraportti I}
+\author{Mika Viinamäki}
+\maketitle
+
+\section{Viikon saavutukset}
+No, LZW:n toimintaperiaatteesta luulen saaneeni melko hyvän käsityksen. Sain myös ensimmäisessä illassa rakenneltua toimivan implementaation, joka pystyi pakkaamaan ja purkamaan onnistuneesti \emph{Seitsemän veljestä} -kirjan. Tiedostokooksi tuli noin 41\% alkuperäisestä, pakkausteho vaikuttaa siis kelvolliselta.
+
+Implementaatio on toki tässä vaiheessa melko rujo --- koodi on sotkuista, metodit on jaettu kehnosti, luokkien nimet ovat mitä ovat eikä luonnollisesti vielä jaksanut panostaa Javadoceihin tai kommentteihin. Hoidetaan kuntoon seuraavaan palautukseen, nyt oli vain prioriteettina saada jotain toimimaan.
+
+Lisäksi ison, satunnaisen tiedoston (generoitu rimpsulla \texttt{dd if=/dev/urandom of=randomfile bs=1M count=10}) pakkaaminen tuntui kestävän kovin, kovin kauan. Joko implementaation taustalla oleva \verb=HashMap= kasvaa vain niin isoksi että sieltä minkään hakeminen kestää todella kauan tai sitten mahdollisesti jokin \verb=long= pyörähtää ympäri saaden aikaan loopin. Joka tapauksessa päädyn varmaan tekemään pakkauksen lohkoissa niin, että pakkaus aloitetaan alusta jos hajautustaulu kasvaa törkeän suureksi --- näin pakkausajan pitäisi pysyä jokseenkin lineaarisena tiedoston kokoon nähden.
+
+Mainittavia epäselvyyksiä ei toistaiseksi ole tullut vastaan --- ainakaan mitään sellaista, mistä ei olisi jo selvitty.
+
+\section{Seuraavaksi}
+
+\begin{itemize}
+    \item Koodin refaktorointi ja karkeimpien hölmöilyjen optimointi
+    \item Javadocit kuntoon
+    \item Aloitetaan Javan tietorakenteiden korvaaminen omilla
+\end{itemize}
+
+\end{document}
