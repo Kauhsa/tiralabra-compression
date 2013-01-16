@@ -16,21 +16,26 @@
 \maketitle
 
 \section{Toteutetut algoritmit}
-Työssä toteutetaan ainakin yksi tiedonpakkausalgoritmi, joka on LZW. Mikäli aikaa jää, toteutetaan kenties muitakin --- todennäköisenä kanditaattina on Huffman-koodaus.   
+Työssä toteutetaan ainakin yksi tiedonpakkausalgoritmi, joka on LZW. Mikäli aikaa jää, toteutetaan kenties muitakin ja mahdollisesti yhdistellään montaa eri algoritmia --- yksi toteutettava algoritmi LZW:n lisäksi voisi olla Huffman-koodaus.
 
-LZW-toteutus tulee käyttämään aputietorakenteena ainakin hajautustaulua, joka implementoidaan itse. Muut tarpeelliset tietorakenteet ovat vielä vähän avoinna --- hajautustaulu tosin kaipaa ainakin linkitetyn listan. ArrayList-tyylinen tietorakenne voi myös osoittautua hyödylliseksi.
+LZW-toteutus tulee käyttämään aputietorakenteena ainakin hajautustaulua, joka implementoidaan itse. Muut tarpeelliset tietorakenteet ovat vielä vähän avoinna, joskin hajautustaulu-implementaatio tulee todennäköisesti käyttämään myös jonkinlaista linkitettyä listaa.
 
 \section{Ratkaistava ongelma}
-LZW pystyy häviöttömästi pakkaamaan (ja purkamaan) tietoa. Kuten useat muutkin häviöttämät tiedonpakkausalgoritmit, LZW on erityisen tehokas mikäli pakattavassa datassa on toistuvia rakenteita. Esimerkkejä tälläisestä datasta on esimerkiksi suomenkielinen teksti.
+LZW pystyy häviöttömästi pakkaamaan (ja purkamaan) tietoa. Kuten useat muutkin häviöttämät tiedonpakkausalgoritmit, LZW on erityisen tehokas mikäli pakattavassa datassa esiintyy toistuvia rakenteita. Esimerkki tälläisestä datasta on esimerkiksi suomenkielinen teksti.
 
-Kaikista tiedonpakkausalgoritmeista nimenomaan toteutettavaksi valitsin LZW:n, koska se vaikutti laajalti dokumentoiduista ja tunnetuista vaihtoehdoista mielenkiintoiselta mutta toisaalta laajuudeltaan sopivalta tähän harjoitustyöhön. 
+Kaikista tiedonpakkausalgoritmeista toteutettavaksi valitsin nimenomaan LZW:n, koska se:
+\begin{itemize}
+    \item on hyvin tunnettu ja siten siitä löytyy runsaasti materiaalia
+    \item vaikutti muutamasta tunnetusta vaihtoehdosta mielenkiintoisimmalta toteuttaa
+    \item on (kai) laajuudeltaan sopiva tähän harjoitustyöhön --- ei siis toivottavasti liian suppea eikä ainakaan liian laaja
+\end{itemize}
 
-LZW-algoritmi itsessään ei ota kantaa siihen, millainen tietorakenne algoritmin perustana oleva sanakirja oikein on --- käytän tässä roolissa hajautustaulua, koska se vaikuttaa luontevalta valinnalta.
+LZW-algoritmi itsessään ei ota kantaa siihen, millainen tietorakenne algoritmin perustana oleva sanakirja oikein on --- hajautustaulu vaikuttaa kuitenkin luontevalta valinnalta.
 
-Lisäksi alustavan LZW-kyhäelmän perusteella tuntuu siltä, että osa ratkaistavasta ongelmasta on bittien kanssa taistelu (mitä LZW vaatii) Javalla. Näistä haasteista kuitenkin selvittäneen.
+Lisäksi alustavan LZW-kyhäelmän perusteella vaikuttaa siltä, että osa ratkaistavasta ongelmasta on bittien kanssa taistelu (mitä LZW vaatii) Javalla ja siihen liittyvät algoritmit.
 
 \section{Ohjelma ja syötteet}
-Ohjelman on tarkoitus vastaanottaa binäärimuotoista dataa \verb=stdin=:stä ja pulauttaa pakattu (tai purettu, parametreista riippuen) versio datasta ulos \verb=stdout=:sta. Tiedoston lukeminen tai sellaiseen tallennus ei sinällään ole kiinnostuksen kohteena --- Linuxin (ja ymmärtääkseni myös Windowsin) komentotulkilla pystyy halutessaan helposti ohjaamaan tiedostosta dataa pakattavaksi tai purettavaksi ja myös ohjaamaan pakatun tai puretun datan tiedostoon.
+Ohjelman on tarkoitus vastaanottaa binäärimuotoista dataa \verb=stdin=:stä ja pulauttaa pakattu/purettu data ulos \verb=stdout=:sta. Tiedoston lukeminen tai sellaiseen tallennus ei sinällään ole kiinnostuksen kohteena --- Linuxin (ja ymmärtääkseni myös Windowsin) komentotulkilla pystyy halutessaan helposti ohjaamaan tiedostosta dataa pakattavaksi tai purettavaksi ja myös ohjaamaan tiedostoon ohjelman tulosteen.
 
 \section{Suorituskyky}
 Itse LZW:n- aika tai tilavaativuudelle ei ole ainakaan toistaiseksi tarkkaa tavoitetta --- tavoitteena on lähinnä saada aikaan ohjelma, joka pystyy pakkaamaan ja purkamaan suuriakin määriä dataa järkevässä ajassa.
