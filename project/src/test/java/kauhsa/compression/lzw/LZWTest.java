@@ -17,7 +17,8 @@ public class LZWTest {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
 
         LZWEncode.encode(in, out);
-        assertArrayEquals(data, LZWDecode.decode(out.toByteArray()));
+        byte[] encodedAndDecoded = LZWDecode.decode(out.toByteArray());
+        assertArrayEquals(data, encodedAndDecoded);
     }
 
     private byte[] loadResourceToByteArray(String s) throws IOException {
@@ -65,7 +66,9 @@ public class LZWTest {
     
     @Test
     public void test256BytesOfRandomData() throws IOException {
-        testEncodingAndDecoding(getRandomData(256));
+        for (int i = 0; i < 100; i++) {
+            testEncodingAndDecoding(getRandomData(256));
+        }
     }
     
     @Test

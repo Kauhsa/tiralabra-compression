@@ -23,15 +23,8 @@ public class LZWDecode {
     public static byte[] decode(byte[] data) throws IOException {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         ByteArrayIterator bat = new ByteArrayIterator(data);
-   
-        /* Ugly hack for now. The reason for this is that dictionary size should
-         * be increased whenever new word is read from dictionary rather than
-         * whenever there is a word added there. Without this, the code length
-         * will be desynced with encoder, resulting wrong codes to get read and
-         * decoding turns to carbage after a certain point. */
-        LZWDictionary dict = new LZWDictionary();
-        dict.incrementSizeOffset();
-        dict.incrementSizeOffset();
+
+        LZWDictionary dict = new LZWDictionary(LZWDictionaryType.DECODE);
 
         BitGroup currentCode;
         Word currentWord;
@@ -39,6 +32,8 @@ public class LZWDecode {
         byte lastCharacter;
         
         while (true) {
+            dict.incrementSizeCounter();
+            
             /* Get next code in binary stream */
             currentCode = bat.next(dict.getCurrentBitSize());
             if (currentCode == null) {

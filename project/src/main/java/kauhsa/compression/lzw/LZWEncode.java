@@ -20,7 +20,7 @@ public class LZWEncode {
      */
     public static void encode(InputStream in, OutputStream out) throws IOException {
         BitGroupOutputStream bitGroupOut = new BitGroupOutputStream(out);
-        LZWDictionary dict = new LZWDictionary();
+        LZWDictionary dict = new LZWDictionary(LZWDictionaryType.ENCODE);
         Word previousWord = null;
         Word currentWord;
 
@@ -44,6 +44,7 @@ public class LZWEncode {
                  * dictionary - add current word to dictionary, write the code
                  * of previous word to OutputStream and reset word */
                 dict.addWord(currentWord);
+                dict.incrementSizeCounter();
                 bitGroupOut.write(dict.getCode(previousWord));
                 previousWord = new Word(currentByte);
             }
@@ -53,8 +54,11 @@ public class LZWEncode {
          * code that means end of file and flush the possible buffer byte left
          * in BitGroupOutputStream */
         if (previousWord != null) {
+            dict.incrementSizeCounter();
             bitGroupOut.write(dict.getCode(previousWord));
         }
+        
+        dict.incrementSizeCounter();
         bitGroupOut.write(dict.getCode(LZWDictionary.EOF_WORD));
         bitGroupOut.flush();
     }
