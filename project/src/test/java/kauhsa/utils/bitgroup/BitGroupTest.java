@@ -18,6 +18,16 @@ public class BitGroupTest {
         assertEquals(s, entry.toString());
     }
     
+    @Test(expected=IllegalArgumentException.class)
+    public void bitCountLessThan1Test() {
+        new BitGroup(0, 0);
+    }          
+    
+    @Test(expected=IllegalArgumentException.class)
+    public void bitCountMoreThan64Test() {
+        new BitGroup(0, 65);
+    }
+    
     @Test
     public void stringRepresentationTest() {
         assertStringRepresentation(1, 1, "1");

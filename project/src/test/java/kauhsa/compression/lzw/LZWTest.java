@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Random;
 import static org.junit.Assert.*;
-import org.junit.Before;
 import org.junit.Test;
 
 public class LZWTest {
@@ -90,5 +89,11 @@ public class LZWTest {
         
         assertTrue(compressedLength / originalLength < 0.5);
         assertTrue(compressedLength / originalLength > 0.1);
+    }
+    
+    @Test(timeout=1000)
+    public void testLotsOfRandomDataQuickly() throws IOException {
+        // ten megabytes. fails for now, as it should~
+        testEncodingAndDecoding(getRandomData(1024 * 1024 * 10));        
     }
 }

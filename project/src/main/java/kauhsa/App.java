@@ -15,11 +15,11 @@ public class App {
     public static final String FILENAME = "/seitseman_veljesta.txt";
 
     public static void main(String[] args) throws IOException {
-        InputStream is = App.class.getResourceAsStream(FILENAME);
+        /* InputStream is = App.class.getResourceAsStream(FILENAME);
         
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         LZWEncode.encode(is, out);
         byte[] decoded = LZWDecode.decode(out.toByteArray());  
-        //System.out.write(decoded);
+        System.out.write(decoded); */
     }
 }
