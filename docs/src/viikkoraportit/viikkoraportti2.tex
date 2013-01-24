@@ -1,0 +1,35 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[finnish]{babel}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\newcommand{\BigO}[1]{\ensuremath{\operatorname{O}\bigl(#1\bigr)}}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.1in}
+
+\begin{document}
+\title{Tiralabra 2013 periodi III \\ Viikkoraportti II}
+\author{Mika Viinamäki}
+\maketitle
+
+\section{Viikon saavutukset}
+
+Tällä viikolla ei tullut käytettyä kehittämiseen niin paljon aikaa kuin oli tarkoitus --- muut kurssit veivät aikaa odotettua enemmän. Sain onneksi edellisellä viikolla enemmän aikaan, niin en ollut nyt hätää kärsimässä. Koodin kuitenkin tuli siihen kuntoon, että voin alkaa korvaamaan Javan tietorakenteita omillani. Toistaiseksi tosin hajautustaulu näyttää olevan ainoa tarpeellinen tietorakenne, sen lisäksi ehkä jokunen Javan taulukoihin liittyvä apumetodi pitää korvata omilla versioilla.
+
+\texttt{LZWEncode.encode} ja \texttt{LZWDecode.decode} ovat vielä ehkä sotkuisempia kuin haluaisin niiden olevan. Metodien pilkkominen pienempiin metodeihin ei oikein ole mielekästä jos ei luovu metodien staattisuudesta. Parantelen varmaan tilannetta jossain vaiheessa, mutta en ehkä heti seuraavaksi.
+
+Itse algoritmin parantelemisen suhteen on seuraavana vuorossa pakattavan datan lohkoaminen pienempiin osiin pakkauksen nopeuttamiseksi, sen jälkeen katsotaan onko jotain mielekkäitä optimointeja tehtävänä erilaisen datan suhteen. Ehkä voisi jättää pakkaamatta sellaisen datan, joka vie pakattuna enemmän tilaa kuin normaalisti, mutta pakkausnopeuteen liittyvät parannukset kiinnostaa enemmän.
+
+Ei vieläkään mitään erityistä kysyttävää. Valitan. \texttt{:(}
+
+\section{Seuraavaksi}
+
+\begin{itemize}
+    \item Omat tietorakenteet
+    \item Algoritmin viilaus
+\end{itemize}
+
+\end{document}
