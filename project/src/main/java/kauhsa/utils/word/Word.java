@@ -64,7 +64,7 @@ public class Word {
     @Override
     public String toString() {
         if (data == null) {
-            return "[null word]";
+            return "null";
         }
         return new String(data);
     }

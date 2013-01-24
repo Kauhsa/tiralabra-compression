@@ -51,6 +51,7 @@ public class LZWTest {
     public void testSimple() throws IOException {
         testEncodingAndDecoding("hå hå, fiske!".getBytes());        
         testEncodingAndDecoding("ainahan voit pelata pokeria taikka kenoa".getBytes());
+        testEncodingAndDecoding("They will all be mine in the end, for I am the Queen of Blades".getBytes());
     }
     
     @Test
@@ -63,6 +64,11 @@ public class LZWTest {
     }
     
     @Test
+    public void test256BytesOfRandomData() throws IOException {
+        testEncodingAndDecoding(getRandomData(256));
+    }
+    
+    @Test
     public void testBook() throws IOException {
         byte[] data = loadResourceToByteArray("seitseman_veljesta.txt");
         testEncodingAndDecoding(data);
@@ -71,14 +77,15 @@ public class LZWTest {
     @Test
     public void testBookCompressedSize() throws IOException {
         byte[] data = loadResourceToByteArray("seitseman_veljesta.txt");
-        int originalLength = data.length;
+        float originalLength = data.length;
         
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         ByteArrayInputStream in = new ByteArrayInputStream(data);
         
         LZWEncode.encode(in, out);
-        int compressedLength = out.toByteArray().length;
+        float compressedLength = out.toByteArray().length;
         
-        assertTrue((float) compressedLength / originalLength < 0.5);
+        assertTrue(compressedLength / originalLength < 0.5);
+        assertTrue(compressedLength / originalLength > 0.1);
     }
 }
