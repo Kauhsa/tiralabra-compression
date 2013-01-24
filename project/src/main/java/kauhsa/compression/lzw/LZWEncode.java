@@ -52,7 +52,9 @@ public class LZWEncode {
         /* Write the last word that didn't get written to OutputStream, write
          * code that means end of file and flush the possible buffer byte left
          * in BitGroupOutputStream */
-        bitGroupOut.write(dict.getCode(previousWord));
+        if (previousWord != null) {
+            bitGroupOut.write(dict.getCode(previousWord));
+        }
         bitGroupOut.write(dict.getCode(LZWDictionary.EOF_WORD));
         bitGroupOut.flush();
     }

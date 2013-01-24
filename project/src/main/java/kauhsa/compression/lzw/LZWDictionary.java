@@ -67,7 +67,7 @@ public class LZWDictionary {
      * Add new Word to dictionary. Will increase bit size of all future codes
      * returned by getCode if necessary.
      *
-     * @param word
+     * @param word Word to be added
      */
     public void addWord(Word word) {
         wordLongDict.put(word, nextValue);
@@ -80,8 +80,8 @@ public class LZWDictionary {
      * Return code for the current word. Bit size of the BitGroup depends on how
      * many words there are currently on dictionary.
      *
-     * @param word
-     * @return
+     * @param word word whose code will be returned
+     * @return code for Word given as parameter
      */
     public BitGroup getCode(Word word) {
         return new BitGroup(wordLongDict.get(word), currentBitSize);
