@@ -3,7 +3,6 @@ package kauhsa.compression.lzw;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import kauhsa.utils.bitgroup.BitGroup;
 import kauhsa.utils.bitgroup.BitGroupInputStream;
 import kauhsa.utils.word.Word;
 
@@ -14,8 +13,6 @@ public class LZWDecode {
 
     /**
      * Decode LZW data.
-     * 
-     * TODO: Change to use Input/OutputStream like encoder.
      * 
      * @param data data to decode
      * @return decoded data
