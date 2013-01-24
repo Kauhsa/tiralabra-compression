@@ -31,38 +31,38 @@ public class BitGroupOutputStreamTest {
 
     @Test
     public void singleByteTest1() throws IOException {
-        singleByteTest(new BitGroup(1, 1), 0b10000000);
+        singleByteTest(new BitGroup(0b1, 1), 0b10000000);
     }
 
     @Test
     public void singleByteTest2() throws IOException {
-        singleByteTest(new BitGroup(1, 2), 0b01000000);
+        singleByteTest(new BitGroup(0b01, 2), 0b01000000);
     }
 
     @Test
     public void singleByteTest3() throws IOException {
-        singleByteTest(new BitGroup(3, 2), 0b11000000);
+        singleByteTest(new BitGroup(0b11, 2), 0b11000000);
     }
 
     @Test
     public void singleByteTest4() throws IOException {
-        singleByteTest(new BitGroup(3, 3), 0b01100000);
+        singleByteTest(new BitGroup(0b011, 3), 0b01100000);
     }
 
     @Test
     public void singleByteTest5() throws IOException {
-        singleByteTest(new BitGroup(1, 5), 0b00001000);
+        singleByteTest(new BitGroup(0b00001, 5), 0b00001000);
     }
 
     @Test
     public void singleByteTest6() throws IOException {
-        singleByteTest(new BitGroup(255, 8), 0b11111111);
+        singleByteTest(new BitGroup(0b11111111, 8), 0b11111111);
     }
 
     @Test
     public void testMultipleBitGroups1() throws IOException {
-        bitGroupWriter.write(new BitGroup(1, 1));
-        bitGroupWriter.write(new BitGroup(1, 1));
+        bitGroupWriter.write(new BitGroup(0b1, 1));
+        bitGroupWriter.write(new BitGroup(0b1, 1));
         bitGroupWriter.flush();
 
         assertEquals((byte) 0b11000000, outputStream.toByteArray()[0]);
@@ -70,8 +70,8 @@ public class BitGroupOutputStreamTest {
 
     @Test
     public void testMultipleBitGroups2() throws IOException {
-        bitGroupWriter.write(new BitGroup(1, 2));
-        bitGroupWriter.write(new BitGroup(1, 2));
+        bitGroupWriter.write(new BitGroup(0b01, 2));
+        bitGroupWriter.write(new BitGroup(0b01, 2));
         bitGroupWriter.flush();
 
         assertEquals((byte) 0b01010000, outputStream.toByteArray()[0]);
@@ -79,9 +79,9 @@ public class BitGroupOutputStreamTest {
 
     @Test
     public void testMultipleBitGroups3() throws IOException {
-        bitGroupWriter.write(new BitGroup(2, 2));
-        bitGroupWriter.write(new BitGroup(1, 2));
-        bitGroupWriter.write(new BitGroup(1, 3));
+        bitGroupWriter.write(new BitGroup(0b10, 2));
+        bitGroupWriter.write(new BitGroup(0b01, 2));
+        bitGroupWriter.write(new BitGroup(0b001, 3));
         bitGroupWriter.flush();
 
         assertEquals((byte) 0b10010010, outputStream.toByteArray()[0]);
