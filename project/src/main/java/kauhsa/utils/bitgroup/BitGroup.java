@@ -53,4 +53,30 @@ public class BitGroup {
         sb.append(dataAsBinaryString);
         return sb.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 37 * hash + (int) (this.data ^ (this.data >>> 32));
+        hash = 37 * hash + this.bitCount;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final BitGroup other = (BitGroup) obj;
+        if (this.data != other.data) {
+            return false;
+        }
+        if (this.bitCount != other.bitCount) {
+            return false;
+        }
+        return true;
+    }
 }

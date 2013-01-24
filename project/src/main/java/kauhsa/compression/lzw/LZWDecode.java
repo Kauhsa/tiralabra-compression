@@ -1,9 +1,10 @@
 package kauhsa.compression.lzw;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import kauhsa.utils.bitgroup.BitGroup;
-import kauhsa.utils.bitgroup.ByteArrayIterator;
+import kauhsa.utils.bitgroup.BitGroupInputStream;
 import kauhsa.utils.word.Word;
 
 /**
@@ -20,31 +21,22 @@ public class LZWDecode {
      * @return decoded data
      * @throws IOException 
      */
-    public static byte[] decode(byte[] data) throws IOException {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ByteArrayIterator bat = new ByteArrayIterator(data);
-
+    public static void decode(InputStream in, OutputStream out) throws IOException {
+        BitGroupInputStream bitGroupInputStream = new BitGroupInputStream(in);
         LZWDictionary dict = new LZWDictionary(LZWDictionaryType.DECODE);
-
-        BitGroup currentCode;
         Word currentWord;
         Word previousWord = null;
-        byte lastCharacter;
         
         while (true) {
             dict.incrementSizeCounter();
             
-            /* Get next code in binary stream */
-            currentCode = bat.next(dict.getCurrentBitSize());
-            if (currentCode == null) {
-                break;
-            }
-        
-            currentWord = dict.getWord(currentCode);
+            /* Get next word for code in binary stream */
+            currentWord = dict.getWord(bitGroupInputStream.read(dict.getCurrentBitSize()));
             if (currentWord != null && currentWord.equals(LZWDictionary.EOF_WORD)) {
                 break;
             }
-            
+
+            byte lastCharacter;
             if (currentWord != null) {
                 /* Normally the unknown character is the first character of
                  * current word */
@@ -66,8 +58,6 @@ public class LZWDecode {
             out.write(currentWord.getData());
             previousWord = currentWord;
         }
-        
-        return out.toByteArray();
     }
     
 }
