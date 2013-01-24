@@ -1,19 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package kauhsa.utils.bitgroup;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
-/**
- *
- * @author mika
- */
 public class BitGroupOutputStreamTest {
 
     private BitGroupOutputStream bitGroupWriter;
@@ -69,29 +61,29 @@ public class BitGroupOutputStreamTest {
 
     @Test
     public void testMultipleBitGroups1() throws IOException {
-        bitGroupWriter.write(new BitGroup(1, 1));        
+        bitGroupWriter.write(new BitGroup(1, 1));
         bitGroupWriter.write(new BitGroup(1, 1));
         bitGroupWriter.flush();
-        
-        assertEquals((byte) 0b11000000, outputStream.toByteArray()[0]);        
+
+        assertEquals((byte) 0b11000000, outputStream.toByteArray()[0]);
     }
-    
+
     @Test
     public void testMultipleBitGroups2() throws IOException {
-        bitGroupWriter.write(new BitGroup(1, 2));        
+        bitGroupWriter.write(new BitGroup(1, 2));
         bitGroupWriter.write(new BitGroup(1, 2));
         bitGroupWriter.flush();
-        
-        assertEquals((byte) 0b01010000, outputStream.toByteArray()[0]);        
+
+        assertEquals((byte) 0b01010000, outputStream.toByteArray()[0]);
     }
-    
+
     @Test
     public void testMultipleBitGroups3() throws IOException {
-        bitGroupWriter.write(new BitGroup(2, 2));        
-        bitGroupWriter.write(new BitGroup(1, 2));           
+        bitGroupWriter.write(new BitGroup(2, 2));
+        bitGroupWriter.write(new BitGroup(1, 2));
         bitGroupWriter.write(new BitGroup(1, 3));
         bitGroupWriter.flush();
-        
-        assertEquals((byte) 0b10010010, outputStream.toByteArray()[0]);        
+
+        assertEquals((byte) 0b10010010, outputStream.toByteArray()[0]);
     }
 }

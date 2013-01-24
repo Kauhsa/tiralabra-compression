@@ -1,12 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package kauhsa.utils.bitgroup;
 
 /**
- *
- * @author mika
+ * Get BitGroups of desired length from byte arrays. This is going to get
+ * replaced, so documentation and tests are lacking.
  */
 public class ByteArrayIterator {
     private final byte[] byteArray;

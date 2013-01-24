@@ -4,7 +4,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import kauhsa.compression.lzw.LZW;
+import kauhsa.compression.lzw.LZWEncode;
+import kauhsa.compression.lzw.LZWDecode;
 
 /**
  * Hello world!
@@ -17,8 +18,8 @@ public class App {
         InputStream is = App.class.getResourceAsStream(FILENAME);
         
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        LZW.encode(is, out);
-        byte[] decoded = LZW.decode(out.toByteArray());  
+        LZWEncode.encode(is, out);
+        byte[] decoded = LZWDecode.decode(out.toByteArray());  
         //System.out.write(decoded);
     }
 }
