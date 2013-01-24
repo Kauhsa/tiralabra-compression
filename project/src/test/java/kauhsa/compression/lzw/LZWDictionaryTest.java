@@ -42,7 +42,7 @@ public class LZWDictionaryTest {
     @Test
     public void sizeIncrementsCorrectly() {
         final int INITIAL_SIZE = 257;
-        for (long i = INITIAL_SIZE; i < 1000; i++) {       
+        for (long i = INITIAL_SIZE; i < 100000000; i++) {       
             int currentBitSize = encodeDict.getCurrentBitSize();
             assertTrue((1L << currentBitSize) >= i);
             assertTrue((1L << currentBitSize - 1) < i);                 
