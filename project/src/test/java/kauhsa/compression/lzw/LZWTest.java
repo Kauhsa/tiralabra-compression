@@ -94,10 +94,10 @@ public class LZWTest {
         assertTrue(compressedLength / originalLength > 0.1);
     }
     
-    /*
-    @Test(timeout=1000)
+    
+    /* @Test(timeout=1000)
     public void testLotsOfRandomDataQuickly() throws IOException {
         // ten megabytes. fails for now, as it should~
         testEncodingAndDecoding(getRandomData(1024 * 1024 * 10));        
-    }*/
+    } */
 }

@@ -1,7 +1,7 @@
 package kauhsa.compression.lzw;
 
-import java.util.HashMap;
 import kauhsa.utils.bitgroup.BitGroup;
+import kauhsa.utils.hashmap.KauhsaHashMap;
 import kauhsa.utils.word.Word;
 
 /**
@@ -10,8 +10,8 @@ import kauhsa.utils.word.Word;
 public class LZWDictionary {
 
     public static final Word EOF_WORD = new Word(null);
-    private HashMap<Word, Long> wordLongDict;
-    private HashMap<Long, Word> longWordDict;
+    private KauhsaHashMap<Word, Long> wordLongDict;
+    private KauhsaHashMap<Long, Word> longWordDict;
     private int currentBitSize;
     private long nextValue;
     private int size;
@@ -35,8 +35,8 @@ public class LZWDictionary {
      * Fill dictionary with single bytes 0-255 and EOF word.
      */
     private void initalizeDictionary() {
-        wordLongDict = new HashMap<>();
-        longWordDict = new HashMap<>();
+        wordLongDict = new KauhsaHashMap<>();
+        longWordDict = new KauhsaHashMap<>();
         for (short i = Byte.MIN_VALUE; i <= Byte.MAX_VALUE; i++) {
             addWord(new Word((byte) i));
             incrementSizeCounter();
