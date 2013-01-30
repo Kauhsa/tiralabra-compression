@@ -41,6 +41,15 @@ public class Word {
         return new Word(newArray);
     }
 
+    /**
+     * Get data of this Word.
+     
+     * @return data of this Word.
+     */
+    public byte[] getData() {
+        return data;
+    }
+
     @Override
     public int hashCode() {
         return Arrays.hashCode(this.data);
@@ -67,9 +76,5 @@ public class Word {
             return "null";
         }
         return new String(data);
-    }
-
-    public byte[] getData() {
-        return data;
     }
 }

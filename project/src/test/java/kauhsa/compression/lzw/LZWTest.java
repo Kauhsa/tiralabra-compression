@@ -14,11 +14,11 @@ public class LZWTest {
     private void testEncodingAndDecoding(byte[] data) throws IOException {
         ByteArrayInputStream originalIn = new ByteArrayInputStream(Arrays.copyOf(data, data.length));
         ByteArrayOutputStream encodedOut = new ByteArrayOutputStream();
-        LZWEncode.encode(originalIn, encodedOut);
+        LZW.encode(originalIn, encodedOut);
         
         ByteArrayInputStream encodedIn = new ByteArrayInputStream(encodedOut.toByteArray());
         ByteArrayOutputStream originalOut = new ByteArrayOutputStream();
-        LZWDecode.decode(encodedIn, originalOut);
+        LZW.decode(encodedIn, originalOut);
         
         assertArrayEquals(data, originalOut.toByteArray());
     }
@@ -87,7 +87,7 @@ public class LZWTest {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         ByteArrayInputStream in = new ByteArrayInputStream(data);
         
-        LZWEncode.encode(in, out);
+        LZW.encode(in, out);
         float compressedLength = out.toByteArray().length;
         
         assertTrue(compressedLength / originalLength < 0.5);

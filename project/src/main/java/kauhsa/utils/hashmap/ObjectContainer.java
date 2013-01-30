@@ -6,22 +6,44 @@ package kauhsa.utils.hashmap;
 public class ObjectContainer<KeyT, ValueT> {
 
     private final KeyT key;
-    private ValueT value;
+    private final ValueT value;
 
+    /**
+     * Create new ObjectContainer.
+     *
+     * @param key
+     * @param value
+     */
     public ObjectContainer(KeyT key, ValueT value) {
         this.key = key;
         this.value = value;
     }
 
+    /**
+     * Get key.
+     *
+     * @return key.
+     */
     public KeyT getKey() {
         return key;
     }
 
+    /**
+     * Get value.
+     *
+     * @return value.
+     */
     public ValueT getValue() {
         return value;
     }
 
-    public void setValue(ValueT value) {
-        this.value = value;
+    /**
+     * Check if keys of two ObjectContainers are equal.
+     * 
+     * @param obj another ObjectContainer
+     * @return true if keys are equal, otherwise false
+     */
+    public boolean keyEquals(ObjectContainer<KeyT, ValueT> obj) {
+        return (obj.getKey().equals(key));
     }
 }

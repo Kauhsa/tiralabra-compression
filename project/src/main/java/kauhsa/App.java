@@ -1,11 +1,6 @@
 package kauhsa;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import kauhsa.compression.lzw.LZWEncode;
-import kauhsa.compression.lzw.LZWDecode;
 
 /**
  * Hello world!

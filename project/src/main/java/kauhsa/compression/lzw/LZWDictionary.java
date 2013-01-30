@@ -58,7 +58,14 @@ public class LZWDictionary {
         }
     }
 
-    public boolean containsWord(Word word) {
+    /**
+     * Check if this dictionary contains a code for specific word.
+     *
+     * @param word word to check
+     * @return true if contains, otherwise false
+     * @throws IllegalStateException if dictionary is not encoding dictionary
+     */
+    public boolean containsWord(Word word) throws IllegalStateException {
         if (type != LZWDictionaryType.ENCODE) {
             throw new IllegalStateException("Can not be used in decoding dictionary");
         }
@@ -66,7 +73,14 @@ public class LZWDictionary {
         return wordLongDict.containsKey(word);
     }
 
-    public boolean containsCode(BitGroup code) {
+    /**
+     * Check if this dictionary contains a word for specific code.
+     *
+     * @param code code to check
+     * @return true if contains, otherwise false
+     * @throws IllegalStateException if dictionary is not decoding dictionary
+     */
+    public boolean containsCode(BitGroup code) throws IllegalStateException {
         if (type != LZWDictionaryType.DECODE) {
             throw new IllegalStateException("Can not be used in encoding dictionary");
         }
@@ -90,13 +104,14 @@ public class LZWDictionary {
     }
 
     /**
-     * Return code for the current word. Bit size of the BitGroup depends on how
-     * many words there are currently on dictionary.
+     * Return code for specific word. Bit size of returned BitGroup depends on
+     * how many times incrementSizeCounter() is called.
      *
-     * @param word word whose code will be returned
+     * @param word matching word for returned code
      * @return code for Word given as parameter
+     * @throws IllegalStateException if dictionary is not encoding dictionary
      */
-    public BitGroup getCode(Word word) {
+    public BitGroup getCode(Word word) throws IllegalStateException {
         if (type != LZWDictionaryType.ENCODE) {
             throw new IllegalStateException("Can not be used in decoding dictionary");
         }
@@ -104,14 +119,27 @@ public class LZWDictionary {
         return new BitGroup(wordLongDict.get(word), currentBitSize);
     }
 
-    public Word getWord(BitGroup bitGroup) {
+    /**
+     * Return word for specific code.
+     *
+     * @param code matching code for returned word
+     * @return Word for code given as parameter
+     * @throws IllegalStateException if dictionary is not decoding dictionary
+     */
+    public Word getWord(BitGroup code) throws IllegalStateException {
         if (type != LZWDictionaryType.DECODE) {
             throw new IllegalStateException("Can not be used in encoding dictionary");
         }
 
-        return longWordDict.get(bitGroup.getData());
+        return longWordDict.get(code.getData());
     }
 
+    /**
+     * Get current bit size of dictionary. Depends on how many times incrementSizeCounter() is
+     * called.
+     *
+     * @return bitSize of BitGroups returned by getCode()
+     */
     public int getCurrentBitSize() {
         return currentBitSize;
     }
