@@ -4,7 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.Random;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -12,7 +11,7 @@ import org.junit.Test;
 public class LZWTest {
 
     private void testEncodingAndDecoding(byte[] data) throws IOException {
-        ByteArrayInputStream originalIn = new ByteArrayInputStream(Arrays.copyOf(data, data.length));
+        ByteArrayInputStream originalIn = new ByteArrayInputStream(data);
         ByteArrayOutputStream encodedOut = new ByteArrayOutputStream();
         LZW.encode(originalIn, encodedOut);
 
@@ -24,7 +23,7 @@ public class LZWTest {
     }
 
     private void testChunkEncodingAndDecoding(byte[] data, int dictSize) throws IOException {
-        ByteArrayInputStream originalIn = new ByteArrayInputStream(Arrays.copyOf(data, data.length));
+        ByteArrayInputStream originalIn = new ByteArrayInputStream(data);
         ByteArrayOutputStream encodedOut = new ByteArrayOutputStream();
         LZW.encodeInChunks(originalIn, encodedOut, dictSize);
 
@@ -111,9 +110,4 @@ public class LZWTest {
         assertTrue(compressedLength / originalLength < 0.5);
         assertTrue(compressedLength / originalLength > 0.1);
     }
-
-    /*@Test//(timeout = 5000)
-    public void testLotsOfRandomDataQuickly() throws IOException {
-        testChunkEncodingAndDecoding(getRandomData(1024 * 1024 * 10), 10000);
-    }*/
 }

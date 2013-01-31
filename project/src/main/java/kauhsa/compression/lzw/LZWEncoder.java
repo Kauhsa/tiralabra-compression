@@ -46,11 +46,17 @@ public class LZWEncoder {
      *
      * @param maxSize maximum size of dictionary. -1 disables the limit.
      * @throws IOException if in or out throws IOException
+     * @throws IllegalArgumentException if maxSize is not greater than initial dictionary size
      */
     @SuppressWarnings("empty-statement")
-    public void encodeUntilDictionarySize(int maxSize) throws IOException {
+    public void encodeUntilDictionarySize(int maxSize) throws IOException, IllegalArgumentException {
         this.maxDictionarySize = maxSize;
         resetState();
+        
+        if (maxSize != -1 && maxSize <= dict.getSizeCounter()) {
+            throw new IllegalArgumentException("maxSize must be greater than initial dictionary size");
+        }
+        
         while (encodeSingleByte());
         finalizeEncoding();
     }
