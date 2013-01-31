@@ -35,6 +35,7 @@ public class LZWDecoder {
      * @throws IOException if BitGroupInputStream or OutputStream throw an
      * IOException
      */
+    @SuppressWarnings("empty-statement")
     public void decode() throws IOException {
         resetState();
         while (decodeSingleCode());

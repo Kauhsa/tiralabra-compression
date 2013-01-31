@@ -143,4 +143,13 @@ public class LZWDictionary {
     public int getCurrentBitSize() {
         return currentBitSize;
     }
+    
+    /**
+     * Get size counter.
+     * 
+     * @return size counter.
+     */
+    public int getSizeCounter() {
+        return size;
+    }
 }

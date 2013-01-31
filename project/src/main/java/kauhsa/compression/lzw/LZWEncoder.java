@@ -16,7 +16,9 @@ public class LZWEncoder {
     private Word previousWord;
     private Word currentWord;
     private byte currentByte;
-
+    private int maxDictionarySize;
+    private boolean inputDepleted;
+    
     /**
      * Create new LZWEncoder instance.
      *
@@ -26,16 +28,28 @@ public class LZWEncoder {
     public LZWEncoder(InputStream in, BitGroupOutputStream out) {
         this.in = in;
         this.out = out;
+        inputDepleted = false;
     }
 
     /**
      * Encode data using LZW algorithm.
      *
-     * @param in Data to encode
-     * @param out Encoded data
-     * @throws IOException If using in or out results error
+     * @throws IOException if in or out throws IOException
      */
     public void encode() throws IOException {
+        encodeUntilDictionarySize(-1);
+    }
+
+    /**
+     * Encode data using LZW algorithm until dictionary size is larger than
+     * maxSize or InputStream is depleted.
+     *
+     * @param maxSize maximum size of dictionary. -1 disables the limit.
+     * @throws IOException if in or out throws IOException
+     */
+    @SuppressWarnings("empty-statement")
+    public void encodeUntilDictionarySize(int maxSize) throws IOException {
+        this.maxDictionarySize = maxSize;
         resetState();
         while (encodeSingleByte());
         finalizeEncoding();
@@ -54,11 +68,16 @@ public class LZWEncoder {
     /**
      * Encode a single byte from InputStream.
      *
-     * @return
+     * @return false if encoding should stop, otherwise true
      * @throws IOException
      */
     private boolean encodeSingleByte() throws IOException {
+        if (maxDictionarySize != -1 && dict.getSizeCounter() > maxDictionarySize) {
+            return false;
+        }
+
         if (!readNextByte()) {
+            inputDepleted = true;
             return false;
         }
 
@@ -128,6 +147,14 @@ public class LZWEncoder {
 
         dict.incrementSizeCounter();
         out.write(dict.getCode(LZWDictionary.EOF_WORD));
-        out.flush();
+    }
+    
+    /**
+     * Return true if InputStream was depleted while using encoding methods in this class.
+     * 
+     * @return true if InputStream depleted, otherwise false
+     */
+    public boolean inputDepleted() {
+        return inputDepleted;
     }
 }
