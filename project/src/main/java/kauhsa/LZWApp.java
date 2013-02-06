@@ -1,38 +1,47 @@
 package kauhsa;
 
 import java.io.IOException;
+import java.io.InputStream;
 import kauhsa.compression.lzw.LZW;
 import kauhsa.utils.PrintOutputStreamWrapper;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.GnuParser;
 import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Option;
+import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.PosixParser;
 
 public class LZWApp {
+    private static final int DEFAULT_MAX_DICTIONARY_SIZE = 10000;
 
     public static void main(String[] args) throws IOException {
         Options options = getOptions();
         CommandLine line = getCommandLine(options, args);
+        InputStream in = System.in;
         PrintOutputStreamWrapper out = new PrintOutputStreamWrapper(System.out);
-        
+
         if (line.hasOption("help")) {
             printHelp(options);
         } else if (line.hasOption("encode")) {
-            LZW.encode(System.in, out);
+            LZW.encode(in, out);
         } else if (line.hasOption("decode")) {
-            LZW.decode(System.in, out);
+            LZW.decode(in, out); 
+        } else if (line.hasOption("encode-chunks")) {
+            String valueString = line.getOptionValue("encode-chunks");
+            int valueInt = valueString == null ? DEFAULT_MAX_DICTIONARY_SIZE : Integer.parseInt(valueString);
+            LZW.encodeInChunks(in, out, valueInt);
+        } else if (line.hasOption("decode-chunks")) {
+            LZW.decodeChunks(in, out);
         } else {
             printHelp(options);
         }
-        
+
         out.flush();
     }
 
     private static CommandLine getCommandLine(Options options, String[] args) {
-        CommandLineParser parser = new GnuParser();
+        CommandLineParser parser = new PosixParser();
         CommandLine line = null;
         try {
             line = parser.parse(options, args);
@@ -44,12 +53,11 @@ public class LZWApp {
 
     private static Options getOptions() throws IllegalArgumentException {
         Options options = new Options();
-        Option help = new Option("help", "print this message");
-        options.addOption(help);
-        Option decode = new Option("decode", "decode data from stdin");
-        options.addOption(decode);
-        Option encode = new Option("encode", "encode data from stdin");
-        options.addOption(encode);
+        options.addOption("h", "help", false, "Show this message.");
+        options.addOption("d", "decode", false, "Decode data from STDIN.");
+        options.addOption("D", "decode-chunks", false, "Decode data that has been encoded using --encode-chunks parameter.");
+        options.addOption("e", "encode", false, "Encode data from STDIN.");
+        options.addOption(OptionBuilder.withLongOpt("encode-chunks").hasOptionalArg().withArgName("SIZE").withDescription("Encode data with maximum LZW dictionary size. Default size is 10000.").create("E"));
         return options;
     }
 
