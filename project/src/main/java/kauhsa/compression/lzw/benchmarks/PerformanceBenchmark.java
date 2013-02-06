@@ -13,12 +13,12 @@ import kauhsa.utils.DummyOutputStream;
 
 public class PerformanceBenchmark extends SimpleBenchmark {
 
-    @Param({"10000", "20000", "30000", "40000", "50000", "60000", "70000", "80000", "90000", "100000"})
-    private int bytesInData;
     @Param
     private DataType dataType;
-    @Param({"-1", "1000", "3000", "6000", "9000"})
+    @Param({"1000", "6000", "12000", "-1"})
     private int maximumDictSize;
+    @Param({"10000", "30000", "50000", "70000", "90000", "110000", "130000", "150000"})
+    private int bytesInData;
     private static byte[] inputData;
     private static byte[] encodedData;
 
@@ -42,7 +42,7 @@ public class PerformanceBenchmark extends SimpleBenchmark {
             LZW.encodeInChunks(in, out, maximumDictSize);
         }
     }
-    
+
     private void doDecoding(InputStream in, OutputStream out) throws IOException {
         if (maximumDictSize == -1) {
             LZW.decode(in, out);
@@ -50,7 +50,7 @@ public class PerformanceBenchmark extends SimpleBenchmark {
             LZW.decodeChunks(in, out);
         }
     }
-    
+
     public void timeEncoding(int reps) throws IOException {
         for (int i = 0; i < reps; i++) {
             ByteArrayInputStream in = new ByteArrayInputStream(inputData);

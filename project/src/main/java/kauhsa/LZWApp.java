@@ -13,6 +13,7 @@ import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
 
 public class LZWApp {
+
     private static final int DEFAULT_MAX_DICTIONARY_SIZE = 10000;
 
     public static void main(String[] args) throws IOException {
@@ -26,7 +27,7 @@ public class LZWApp {
         } else if (line.hasOption("encode")) {
             LZW.encode(in, out);
         } else if (line.hasOption("decode")) {
-            LZW.decode(in, out); 
+            LZW.decode(in, out);
         } else if (line.hasOption("encode-chunks")) {
             String valueString = line.getOptionValue("encode-chunks");
             int valueInt = valueString == null ? DEFAULT_MAX_DICTIONARY_SIZE : Integer.parseInt(valueString);
@@ -51,13 +52,14 @@ public class LZWApp {
         return line;
     }
 
+    @SuppressWarnings("static-access")
     private static Options getOptions() throws IllegalArgumentException {
         Options options = new Options();
         options.addOption("h", "help", false, "Show this message.");
         options.addOption("d", "decode", false, "Decode data from STDIN.");
         options.addOption("D", "decode-chunks", false, "Decode data that has been encoded using --encode-chunks parameter.");
         options.addOption("e", "encode", false, "Encode data from STDIN.");
-        options.addOption(OptionBuilder.withLongOpt("encode-chunks").hasOptionalArg().withArgName("SIZE").withDescription("Encode data with maximum LZW dictionary size. Default size is 10000.").create("E"));
+        options.addOption(OptionBuilder.withLongOpt("encode-chunks").hasOptionalArg().withArgName("SIZE").withDescription("Encode data with maximum LZW dictionary size. Default size is " + DEFAULT_MAX_DICTIONARY_SIZE + ".").create("E"));
         return options;
     }
 

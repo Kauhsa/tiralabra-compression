@@ -12,8 +12,8 @@ import kauhsa.compression.lzw.LZW;
  */
 public class CompressionBenchmark {
     public static DataType[] dataTypes = DataType.values();
-    public static int[] dataLengthsArray = new int[] {10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000};
-    public static int[] maximumDictSizes = new int[] {-1, 1000, 3000, 6000, 9000};
+    public static int[] dataLengthsArray = new int[] {10000, 30000, 50000, 70000, 90000, 110000, 130000, 150000};
+    public static int[] maximumDictSizes = new int[] {1000, 6000, 12000, -1};
     
     public static void main(String[] args) throws IOException {
         for (DataType dataType : dataTypes) {
@@ -40,7 +40,10 @@ public class CompressionBenchmark {
         encode(in, out, maximumDictSize);
         
         float ratio = (float) out.size() / inputData.length;
-        System.out.printf("dataType: %s\t bytesOfData: %s\t maximumDictSize: %s\t ratio: %.3f", dataType, bytesOfData, maximumDictSize, ratio);
+        System.out.printf("dataType: %s\t", dataType);
+        System.out.printf("bytesOfData: %s\t", bytesOfData);
+        System.out.printf("maximumDictSize: %s\t", maximumDictSize);        
+        System.out.printf("ratio: %.2f\t", ratio);
         System.out.println();
     }
 }
