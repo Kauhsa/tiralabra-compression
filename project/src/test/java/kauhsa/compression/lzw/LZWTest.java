@@ -76,7 +76,16 @@ public class LZWTest {
             testEncodingAndDecoding(getRandomData(len));
         }
     }
-
+    
+    @Test
+    public void testRandomDataInChunks() throws IOException {
+        Random random = new Random();
+        for (int i = 0; i < 10; i++) {
+            int len = random.nextInt(1000) + 10000;
+            testChunkEncodingAndDecoding(getRandomData(len), 1000);
+        }
+    }
+    
     @Test
     public void test256BytesOfRandomData() throws IOException {
         for (int i = 0; i < 100; i++) {
@@ -95,7 +104,7 @@ public class LZWTest {
         byte[] data = loadResourceToByteArray("seitseman_veljesta.txt");
         testChunkEncodingAndDecoding(data, 10000);
     }
-
+    
     @Test
     public void testBookCompressedSize() throws IOException {
         byte[] data = loadResourceToByteArray("seitseman_veljesta.txt");
