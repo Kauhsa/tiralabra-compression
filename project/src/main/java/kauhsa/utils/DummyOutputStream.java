@@ -1,4 +1,4 @@
-package kauhsa.utils.dummyoutputstream;
+package kauhsa.utils;
 
 import java.io.OutputStream;
 

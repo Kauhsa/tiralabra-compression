@@ -3,7 +3,7 @@ package kauhsa.compression.lzw;
 import java.io.IOException;
 import java.io.InputStream;
 import kauhsa.utils.bitgroup.BitGroupOutputStream;
-import kauhsa.utils.word.Word;
+import kauhsa.utils.Word;
 
 /**
  * Class that implements LZW encoding.

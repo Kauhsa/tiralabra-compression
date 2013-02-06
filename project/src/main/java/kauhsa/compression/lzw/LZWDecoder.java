@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import kauhsa.utils.bitgroup.BitGroup;
 import kauhsa.utils.bitgroup.BitGroupInputStream;
-import kauhsa.utils.word.Word;
+import kauhsa.utils.Word;
 
 /**
  * Class that implements LZW decoding.

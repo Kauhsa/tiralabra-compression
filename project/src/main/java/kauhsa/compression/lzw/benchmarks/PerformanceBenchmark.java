@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import kauhsa.compression.lzw.LZW;
-import kauhsa.utils.dummyoutputstream.DummyOutputStream;
+import kauhsa.utils.DummyOutputStream;
 
 public class PerformanceBenchmark extends SimpleBenchmark {
 

@@ -1,4 +1,4 @@
-package kauhsa.utils.word;
+package kauhsa.utils;
 
 import java.util.Arrays;
 

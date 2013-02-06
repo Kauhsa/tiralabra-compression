@@ -1,8 +1,8 @@
 package kauhsa.compression.lzw;
 
+import kauhsa.utils.Word;
 import kauhsa.utils.bitgroup.BitGroup;
 import kauhsa.utils.hashmap.KauhsaHashMap;
-import kauhsa.utils.word.Word;
 
 /**
  * Dictionary implementation that is in the core of LZW algorithm.

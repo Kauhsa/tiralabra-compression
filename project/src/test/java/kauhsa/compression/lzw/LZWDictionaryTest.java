@@ -1,6 +1,6 @@
 package kauhsa.compression.lzw;
 
-import kauhsa.utils.word.Word;
+import kauhsa.utils.Word;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;

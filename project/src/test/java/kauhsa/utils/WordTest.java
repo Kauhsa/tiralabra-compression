@@ -1,4 +1,4 @@
-package kauhsa.utils.word;
+package kauhsa.utils;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
