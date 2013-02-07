@@ -16,6 +16,12 @@ public class LZWApp {
 
     private static final int DEFAULT_MAX_DICTIONARY_SIZE = 10000;
 
+    /**
+     * Run LZW encoder/decoder.
+     * 
+     * @param args command line arguments
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException {
         Options options = getOptions();
         CommandLine line = getCommandLine(options, args);
@@ -41,6 +47,13 @@ public class LZWApp {
         out.flush();
     }
 
+    /**
+     * Get CommandLine from command line arguments.
+     * 
+     * @param options Options to use
+     * @param args command line arguments
+     * @return CommandLine object
+     */
     private static CommandLine getCommandLine(Options options, String[] args) {
         CommandLineParser parser = new PosixParser();
         CommandLine line = null;
@@ -52,6 +65,12 @@ public class LZWApp {
         return line;
     }
 
+    /**
+     * Get Options for this program.
+     * 
+     * @return Options for this program.
+     * @throws IllegalArgumentException 
+     */
     @SuppressWarnings("static-access")
     private static Options getOptions() throws IllegalArgumentException {
         Options options = new Options();
@@ -63,6 +82,10 @@ public class LZWApp {
         return options;
     }
 
+    /**
+     * Print help of command line arguments to System.out.
+     * @param options Options to use for help text.
+     */
     private static void printHelp(Options options) {
         HelpFormatter formatter = new HelpFormatter();
         formatter.printHelp("lzw", options);
