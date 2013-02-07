@@ -7,7 +7,7 @@ import static kauhsa.utils.hashmap.Primes.primes;
  */
 public class KauhsaHashMap<KeyT, ValueT> {
 
-    private final double MAX_LOAD_FACTOR = 0.75;
+    private final double MAX_LOAD_FACTOR = 0.5;
     private ObjectContainer<KeyT, ValueT>[] objectArray;
     private int objectCount = 0;
     private int currentPrimeIndex = 0;
