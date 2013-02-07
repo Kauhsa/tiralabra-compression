@@ -1,0 +1,34 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[finnish]{babel}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\newcommand{\BigO}[1]{\ensuremath{\operatorname{O}\bigl(#1\bigr)}}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.1in}
+
+\begin{document}
+\title{Tiralabra 2013 periodi III \\ Viikkoraportti IV}
+\author{Mika Viinamäki}
+\maketitle
+
+\section{Viikon saavutukset}
+
+Tällä viikolla sain aikaan kaikenlaisia benchmarkkeja --- sellaisia löytyy nyt pakkausnopeudesta, pakkaustehosta ja hajautustaulun suorituskyvystä. Joskin viimeisin ei ole toistaiseksi mitenkään erikoinen. Käytin jo viimeksi mainittua Caliper-kirjastoa aikatesteissä, pakkaustehoa testaa vain pieni yksinkertainen koodinpätkä. Tuloksena näistä kaikista on mielenkiintoisia numeroita, joista varmaan riittää analysoitavaa. Pieni varoituksen sana: varaa aikaa, jos kokeilet pakkausnopeuden benchmarkia --- itselläni sen ajaminen kestää noin 40 minuuttia.
+
+Lisäksi rakensin itse pääohjelman. Otin vapauden käyttää Apache CLI -kirjastoa komentoriviparametrien käsittelyn apuna --- sitä ei ole hirveän siistiä tehdä käsin ja se tuskin on hirveän olennaista tämän kurssin kannalta.
+
+Kaikkien tietorakenteiden ja taulukon käsittelyn apumetodien pitäisi nyt olla omia. Testeissä saattaa tosin olla jotain muuta kuin omaa jäljellä, mutta tarviiko niiden testeissä täysin omia ollakaan?
+
+Ohjelma noin muuten on periaatteessa valmis, mitä nyt optimointia ja virittelyä voisi tehdä, mutta keskittynen seuraavaksi kurssin erinäisten dokumenttien kirjoittamiseen.
+
+\section{Seuraavaksi}
+
+\begin{itemize}
+    \item Dokumentaatioiden kirjoittelua
+\end{itemize}
+
+\end{document}

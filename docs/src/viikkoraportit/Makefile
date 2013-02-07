@@ -9,3 +9,7 @@ viikko2: viikkoraportti2.tex
 viikko3: viikkoraportti3.tex
 	pdflatex viikkoraportti3.tex
 	mv viikkoraportti3.pdf ../../viikkoraportti3.pdf
+
+viikko4: viikkoraportti4.tex
+	pdflatex viikkoraportti4.tex
+	mv viikkoraportti4.pdf ../../viikkoraportti4.pdf
