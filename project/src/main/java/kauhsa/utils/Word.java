@@ -1,7 +1,5 @@
 package kauhsa.utils;
 
-import java.util.Arrays;
-
 /**
  * Container for byte array. Exists mainly because you can not use byte arrays
  * directly in Maps as they don't implement hashCode or equals.

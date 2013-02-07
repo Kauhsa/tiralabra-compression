@@ -2,9 +2,9 @@ package kauhsa.compression.lzw;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import kauhsa.utils.Word;
 import kauhsa.utils.bitgroup.BitGroup;
 import kauhsa.utils.bitgroup.BitGroupInputStream;
-import kauhsa.utils.Word;
 
 /**
  * Class that implements LZW decoding.

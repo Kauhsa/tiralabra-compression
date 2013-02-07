@@ -11,6 +11,10 @@ import java.io.OutputStream;
 import kauhsa.compression.lzw.LZW;
 import kauhsa.utils.DummyOutputStream;
 
+/**
+ * Benchmark of LZW encoding and decoding speed with different type/size of data
+ * and different settings.
+ */
 public class PerformanceBenchmark extends SimpleBenchmark {
 
     @Param
@@ -28,6 +32,11 @@ public class PerformanceBenchmark extends SimpleBenchmark {
         initializeEncodedData();
     }
 
+    /**
+     * Initalize encoded data for decode tests.
+     *
+     * @throws IOException
+     */
     private void initializeEncodedData() throws IOException {
         ByteArrayInputStream in = new ByteArrayInputStream(inputData);
         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -35,6 +44,13 @@ public class PerformanceBenchmark extends SimpleBenchmark {
         encodedData = out.toByteArray();
     }
 
+    /**
+     * Do LZW encoding with current settings.
+     *
+     * @param in input data
+     * @param out encoded data
+     * @throws IOException
+     */
     private void doEncoding(InputStream in, OutputStream out) throws IOException {
         if (maximumDictSize == -1) {
             LZW.encode(in, out);
@@ -43,6 +59,13 @@ public class PerformanceBenchmark extends SimpleBenchmark {
         }
     }
 
+    /**
+     * Do LZW decoding with current settings.
+     *
+     * @param in encoded data
+     * @param out decoded data
+     * @throws IOException
+     */
     private void doDecoding(InputStream in, OutputStream out) throws IOException {
         if (maximumDictSize == -1) {
             LZW.decode(in, out);
@@ -51,6 +74,12 @@ public class PerformanceBenchmark extends SimpleBenchmark {
         }
     }
 
+    /**
+     * Time encoding speed.
+     *
+     * @param reps how many times encoding is done
+     * @throws IOException
+     */
     public void timeEncoding(int reps) throws IOException {
         for (int i = 0; i < reps; i++) {
             ByteArrayInputStream in = new ByteArrayInputStream(inputData);
@@ -59,6 +88,12 @@ public class PerformanceBenchmark extends SimpleBenchmark {
         }
     }
 
+    /**
+     * Time decoding speed.
+     *
+     * @param reps how many times decoding is done
+     * @throws IOException
+     */
     public void timeDecoding(int reps) throws IOException {
         for (int i = 0; i < reps; i++) {
             ByteArrayInputStream in = new ByteArrayInputStream(encodedData);
@@ -67,6 +102,11 @@ public class PerformanceBenchmark extends SimpleBenchmark {
         }
     }
 
+    /**
+     * Run benchmark.
+     *
+     * @param args Caliper settings
+     */
     public static void main(String[] args) {
         Runner.main(PerformanceBenchmark.class, args);
     }
