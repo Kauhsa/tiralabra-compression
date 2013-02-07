@@ -36,7 +36,7 @@ public class Word {
      * @return new Word containing the byte given as parameter.
      */
     public Word append(byte newByte) {
-        byte[] newArray = Arrays.copyOf(data, data.length + 1);
+        byte[] newArray = ArrayUtils.increaseArray(data, 1);
         newArray[newArray.length - 1] = newByte;
         return new Word(newArray);
     }
@@ -52,7 +52,7 @@ public class Word {
 
     @Override
     public int hashCode() {
-        return Arrays.hashCode(this.data);
+        return ArrayUtils.arrayHashCode(this.data);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class Word {
             return false;
         }
         final Word other = (Word) obj;
-        if (!Arrays.equals(this.data, other.data)) {
+        if (!ArrayUtils.arrayEquals(this.data, other.data)) {
             return false;
         }
         return true;
