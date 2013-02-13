@@ -1,0 +1,78 @@
+\documentclass{article}
+
+\usepackage{color}
+\usepackage[utf8]{inputenc}
+\usepackage[finnish]{babel}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{listings}
+
+\lstset{
+	identifierstyle=\ttfamily,
+    breaklines=true,
+    keywordstyle=\color[rgb]{0,0,1},
+    commentstyle=\color[rgb]{0.133,0.545,0.133},
+    stringstyle=\color[rgb]{0.627,0.126,0.941},
+	language=Python
+}
+
+\newcommand{\BigO}[1]{\ensuremath{\operatorname{O}\bigl(#1\bigr)}}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.1in}
+
+\begin{document}
+\title{Tiralabra 2013 periodi III \\ Toteutusdokumentti}
+\author{Mika Viinamäki}
+\maketitle
+
+\section{Ohjelman yleisrakenne}
+
+Ohjelma koostuu muutamasta, jossain määrin itsenäisestä osiosta:
+\begin{itemize}
+	\item LZW-pakkaaja ja -purkaja, \texttt{kauhsa.compression.lzw}-paketti
+	\item \texttt{BitGroup} ja siihen liittyvät apuluokat, jotka mahdollistavat tiedon kirjoittamisen ja lukemisen bitti kerrallaan, \texttt{kauhsa.utils.bitgroup}-paketti
+	\item Oma hajautustaulu-implementaatio, \texttt{kauhsa.utils.hashmap}-paketti
+	\item Satunnaiset apuluokat, \texttt{kauhsa.utils}-paketin juuressa
+	\item Komentoriviltä käytettävä käyttöliittymä, \texttt{kauhsa.LZWApp}-luokka
+\end{itemize}
+
+Näiden ohjelman mukana on erinäisiä suorituskykytestejä sekä yksikkötestejä.
+
+\section {LZW}
+
+Algoritmi on toteutettu enimmäkseen Wikipedian LZW-artikkelin\footnote{\url{http://en.wikipedia.org/wiki/LZW}} perusteella. LZW ei algoritmina ota kantaa siihen, miten sen ytimenä oleva sanakirja on toteutettu --- tässä implementaatiossa on käytetty sekä pakkaamisessa että purkamisessa sanakirjana hajautustaulua.
+
+Koska LZW-toteutus pystyy pakkaamaan mitä tahansa binäärimuotoista dataa, sanakirja alustetaan kaikilla mahdollisilla yksittäisillä tavuilla (0-255). Lisäksi sanakirjaan lisätään erityinen EOF-koodi\footnote{"End of File"}, jolla merkitään pakatun datan loppu. Toteutus ei kuljeta näitä tietoja pakatun datan mukana, vaan luottaa siihen että purkaja on yhteensopiva pakatun datan kanssa.
+
+LZW-implementaatiossa on kaksi eri pakkaustapaa:
+\begin{itemize}
+	\item "Tavallinen" pakkaus, joka pakkaa kaiken datan käyttäen samaa sanakirjaa alusta loppuun. Hyvä pakkausteho hyvin pakkautuvalla datalla, mutta saattaa olla todella hidas suurella määrällä huonosti pakkautuvaa dataa.
+	\item Pakkaus lohkoissa, joka aloittaa pakkaamisen alusta aina kun sanakirja kasvaa liian suureksi. Nopeampi kuin tavallinen pakkaus, mutta etenkin hyvin pakkautuvalla datalla pakkausteho on yleensä jonkin verran huonompi. Sanakirjan koon yläraja on säädettävissä.
+\end{itemize}
+Tietyllä pakkaustavalla pakattu data on purettava sitä vastaavalla purkutavalla.
+
+\section {Hajautustaulu}
+
+Hajautustaulu on toteutettu Tietorakenteet ja algoritmit -kurssin luentomateriaalissa\footnote{\url{http://www.cs.helsinki.fi/u/floreen/tira2012/tira.pdf}, s. 310--325} esitettyä avointa hajautusta sekä kaksoishajautusta käyttäen.
+
+\subsection{Aikavaativuuden analysointi}
+
+Hajautustauluun lisääminen on pseudokoodina\footnote{Ihan oikea Java-koodi löytyy \href{https://github.com/Kauhsa/tiralabra-compression/blob/master/project/src/main/java/kauhsa/utils/hashmap/KauhsaHashMap.java}{täältä}.} esitettynä jokseenkin seuraavanlainen:
+
+\begin{lstlisting}
+if current_load_factor() > MAX_LOAD_FACTOR:
+	rehash(nextDoubleAsLargePrime())
+
+for i in range(table.length):
+    int tableI = hashFunction(key, i, table.length)
+    if table[tableI] is None or table[tableI].key == key:
+        table[tableI].value = value
+        return	
+\end{lstlisting}
+
+Koodista nähdään, että aina kun täyttöaste ylittää tietyn rajan, suoritetaan uudelleenhajautus. Uudelleenhajautus on aikavaativuudeltaan \BigO{m}, missä m on nykyisen olioiden tallentamiseen käytetyn taulukon koko. Kaksoishajautus kuitenkin kasvattaa taulun kokoa aina vähintään tuplasti --- taulukon kokoina käytetään kaksoishajautuksen takia alkulukuja, joten taulukon uudeksi kooksi tulee taulukon nykyistä kokoa kaksinkertaisena seuraava alkuluku. Tuplasti edellistä isommat alkuluvut on laskettu etukäteen taulukkoon, joten niiden selvittäminen on vakioaikaista. Niinpä uudelleenhajautuksen tekeminen tarpeen vaatiessa on tasoitettuna aikavaativuutena \BigO{1}.
+
+Tietorakenteet ja algoritmit -kurssin luentomonisteissa ei erikseen analysoida aikavaativuutta avoimen hajautuksen osalta --- hajautustaulun operaatiot ovat kuitenkin tasoitetusti \BigO{1}.
+
+\end{document}
