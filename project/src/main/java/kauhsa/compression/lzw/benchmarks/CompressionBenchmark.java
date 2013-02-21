@@ -24,8 +24,8 @@ public class CompressionBenchmark {
      */
     public static void main(String[] args) throws IOException {
         for (DataType dataType : dataTypes) {
-            for (int bytesOfData : dataLengthsArray) {
-                for (int maximumDictSize : maximumDictSizes) {
+            for (int maximumDictSize : maximumDictSizes) {
+                for (int bytesOfData : dataLengthsArray) {
                     benchmarkRatio(dataType, bytesOfData, maximumDictSize);
                 }
             }
@@ -50,7 +50,7 @@ public class CompressionBenchmark {
 
     /**
      * Do ratio benchmark.
-     * 
+     *
      * @param dataType selected data type
      * @param bytesOfData how many bytes of data
      * @param maximumDictSize maximum LZW dictionary size, -1 disables chunks
@@ -63,9 +63,9 @@ public class CompressionBenchmark {
         encode(in, out, maximumDictSize);
 
         float ratio = (float) out.size() / inputData.length;
-        System.out.printf("dataType: %s\t", dataType);
-        System.out.printf("bytesOfData: %s\t", bytesOfData);
+        System.out.printf("dataType: %s\t", dataType);        
         System.out.printf("maximumDictSize: %s\t", maximumDictSize);
+        System.out.printf("bytesOfData: %s\t", bytesOfData);
         System.out.printf("ratio: %.2f\t", ratio);
         System.out.println();
     }
