@@ -54,25 +54,12 @@ Tietyllä pakkaustavalla pakattu data on purettava sitä vastaavalla purkutavall
 
 \section {Hajautustaulu}
 
-Hajautustaulu on toteutettu Tietorakenteet ja algoritmit -kurssin luentomateriaalissa\footnote{\url{http://www.cs.helsinki.fi/u/floreen/tira2012/tira.pdf}, s. 310--325} esitettyä avointa hajautusta sekä kaksoishajautusta käyttäen.
+Hajautustaulu on toteutettu Tietorakenteet ja algoritmit -kurssin luentomateriaalissa\footnote{\url{http://www.cs.helsinki.fi/u/floreen/tira2012/tira.pdf}, s. 310--325} esitettyä avointa hajautusta sekä kaksoishajautusta käyttäen. Käytännössä toteutus on identtinen materiaalissa esitetyn pseudokoodin kanssa, joskaan esimerkiksi poistamista ei ole toteutettu koska se ei ole LZW-algoritmin kannalta tarpeellinen ominaisuus.
 
-\subsection{Aikavaativuuden analysointi}
+\section {Puutteet}
 
-Hajautustauluun lisääminen on pseudokoodina\footnote{Ihan oikea Java-koodi löytyy \href{https://github.com/Kauhsa/tiralabra-compression/blob/master/project/src/main/java/kauhsa/utils/hashmap/KauhsaHashMap.java}{täältä}.} esitettynä jokseenkin seuraavanlainen:
+Koodin rakenteessa on joitain puutteita --- olisi muun muassa kätevää, mikäli LZW-sanakirja olisi rajapinta ja \verb+LZWEncoder+ ja \verb+LZWDecoder+ -luokille pystyisi antamaan konstruktorin parametrina instanssin haluttuun sanakirja-\-implementaatioon. Kyseiset luokat voisivat muutenkin olla selkeämmin toteutettuja. Lisäksi esimerkiksi koodin esittämiseen tarvitun bittimäärän laskemisen voisi siirtää pois \verb+LZWDictionary+-luokasta.
 
-\begin{lstlisting}
-if current_load_factor() > MAX_LOAD_FACTOR:
-	rehash(nextDoubleAsLargePrime())
-
-for i in range(table.length):
-    int tableI = hashFunction(key, i, table.length)
-    if table[tableI] is None or table[tableI].key == key:
-        table[tableI].value = value
-        return	
-\end{lstlisting}
-
-Koodista nähdään, että aina kun täyttöaste ylittää tietyn rajan, suoritetaan uudelleenhajautus. Uudelleenhajautus on aikavaativuudeltaan \BigO{m}, missä m on nykyisen olioiden tallentamiseen käytetyn taulukon koko. Kaksoishajautus kuitenkin kasvattaa taulun kokoa aina vähintään tuplasti --- taulukon kokoina käytetään kaksoishajautuksen takia alkulukuja, joten taulukon uudeksi kooksi tulee taulukon nykyistä kokoa kaksinkertaisena seuraava alkuluku. Tuplasti edellistä isommat alkuluvut on laskettu etukäteen taulukkoon, joten niiden selvittäminen on vakioaikaista. Niinpä uudelleenhajautuksen tekeminen tarpeen vaatiessa on tasoitettuna aikavaativuutena \BigO{1}.
-
-Tietorakenteet ja algoritmit -kurssin luentomonisteissa ei erikseen analysoida aikavaativuutta avoimen hajautuksen osalta --- hajautustaulun operaatiot ovat kuitenkin tasoitetusti \BigO{1}.
+Lisäksi LZW-pakkaus ei ole niin tehokas kuin voisi olla - hajautustaulun käyttäminen sanakirjana on tarpeettoman tehotonta. Parempia ratkaisuja löytyy muun muassa \href{http://warp.povusers.org/EfficientLZW/part4.html}{täältä} --- sääli, etten löytänyt sivua ennen kuin aloitin algoritmini toteuttamisen. Parempi sanakirja ei kuitenkaan ehkä olisi aivan valtaisa muutos ohjelmaan.
 
 \end{document}
