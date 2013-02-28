@@ -21,3 +21,7 @@ viikko5: viikkoraportti5.tex
 viikko6: viikkoraportti6.tex
 	pdflatex viikkoraportti6.tex
 	mv viikkoraportti6.pdf ../../viikkoraportti6.pdf
+
+viikko7: viikkoraportti7.tex
+	pdflatex viikkoraportti7.tex
+	mv viikkoraportti7.pdf ../../viikkoraportti7.pdf
