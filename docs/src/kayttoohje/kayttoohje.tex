@@ -38,7 +38,7 @@ usage: lzw
 \end{verbatim}
 
 \section{Tiedon pakkaaminen ja purkaminen}
-Ohjelma kykenee pakkaamaan mitä tahansa binäärimuotoista dataa ja purkamaan sillä pakatun datan.
+Ohjelma kykenee pakkaamaan mitä tahansa binäärimuotoista dataa ja purkamaan sillä pakatun datan. Kaikissa tapauksissa ohjelma lukee datan \verb+STDIN+:stä ja kirjoittaa sen \verb+STDOUT+:iin.
 
 Lyhyitä merkkijonoja voi pakata seuraavasti putkea (pipe) käyttämällä:
 \begin{verbatim}
@@ -51,7 +51,7 @@ Pakatun datan voi ohjata halutessaan myös tiedostoon:
 \begin{verbatim}
 $ echo "Hei maailma" | java -jar lzw.jar -e > pakattu_maailma.lzw
 $ cat pakattu_maailma.lzw
-pakattu data tulostettuna konsoliin
+<pakattu data tulostettuna konsoliin>
 \end{verbatim}
 \end{samepage}
 
