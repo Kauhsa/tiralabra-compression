@@ -40,10 +40,10 @@ usage: lzw
 \section{Tiedon pakkaaminen ja purkaminen}
 Ohjelma kykenee pakkaamaan mitä tahansa binäärimuotoista dataa ja purkamaan sillä pakatun datan. Kaikissa tapauksissa ohjelma lukee datan \verb+STDIN+:stä ja kirjoittaa sen \verb+STDOUT+:iin.
 
-Lyhyitä merkkijonoja voi pakata seuraavasti putkea (pipe) käyttämällä:
+Lyhyitä merkkijonoja voi pakata seuraavasti putkea ja \verb+echo+-ohjelmaa käyttämällä:
 \begin{verbatim}
 $ echo "Hei maailma" | java -jar lzw.jar -e
-pakattu data tulostettuna konsoliin
+<pakattu data tulostettuna konsoliin>
 \end{verbatim}
 
 \begin{samepage}
@@ -57,19 +57,19 @@ $ cat pakattu_maailma.lzw
 
 Paketissa on mukana lisäksi muutama pakkauksen testaamiseen soveltuva tiedosto, joita voi pakata seuraavasti:
 \begin{verbatim}
-$ cat test_files/seitseman_veljesta.txt | java -jar lzw.jar -e >
-  seitseman_veljesta_pakattu.lzw
+$ java -jar lzw.jar -e < test_files/seitseman_veljesta.txt
+  > seitseman_veljesta_pakattu.lzw
 \end{verbatim}
 
 Pakatun tiedoston voi purkaa näin:
 \begin{verbatim}
-$ cat seitseman_veljesta_pakattu.lzw | java -jar lzw.jar -d
+$ java -jar lzw.jar -d < seitseman_veljesta_pakattu.lzw
 <purettu data tulostettuna konsoliin>
 \end{verbatim}
 
 Pakkaamisen ja purkamisen voi lisäksi tehdä yhtäaikaa --- näppärä tapa varmistua siitä, että pakkaus toimii:
 \begin{verbatim}
-$ cat test_files/seitseman_veljesta.txt | java -jar lzw.jar -e |
+$ java -jar lzw.jar -e < test_files/seitseman_veljesta.txt |
   java -jar lzw.jar -d
 \end{verbatim}
 
